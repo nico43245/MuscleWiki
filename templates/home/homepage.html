@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Acasă – GymWiki{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+  <h1 class="display-4 mb-4">Bine ai venit la GymWiki!</h1>
+  <p class="lead mb-5">Alege ce vrei să explorezi:</p>
+  <a href="{% url 'muscle-group-list' %}" class="btn btn-primary btn-lg">
+    Grupe Musculare
+  </a>
+</div>
+{% endblock %}

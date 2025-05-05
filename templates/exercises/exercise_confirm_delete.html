@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Șterge Exercițiu – GymWiki{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width:600px;">
+  <h1 class="mb-4 text-center text-danger">Șterge Exercițiu</h1>
+  <p class="lead text-center">
+    Ești sigur(ă) că vrei să ștergi
+    <strong>{{ object.name }}</strong>?
+  </p>
+  <form method="post" class="text-center">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger me-2">Da, Șterge</button>
+    <a href="{% url 'exercise-detail' pk=object.pk %}" class="btn btn-secondary">
+      Anulează
+    </a>
+  </form>
+</div>
+{% endblock %}

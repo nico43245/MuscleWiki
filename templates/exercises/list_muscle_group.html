@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Grupe Musculare – GymWiki{% endblock %}
+
+{% block content %}
+  <div class="container py-4">
+    <h1 class="mb-4">Grupe Musculare</h1>
+    <div class="row g-3">
+      {% for group in groups %}
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="{% url 'exercise-list' slug=group.slug %}" class="text-decoration-none">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ group.name }}</h5>
+              </div>
+              <div class="card-footer bg-light text-muted text-center small">
+                {{ group.exercises.count }} exerciții
+              </div>
+            </div>
+          </a>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="alert alert-info">
+            Nu există grupe musculare de afișat.
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

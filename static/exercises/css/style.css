@@ -1,0 +1,27 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+}
+.card {
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}
+
+.anatomy-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;  /* adaptează după preferință */
+  margin: 0 auto;
+}
+.anatomy-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hotspot {
+  position: absolute;
+  cursor: pointer;
+  /* fă-le cu border solid ca să le vezi */
+  border: 2px solid red;
+  background: rgba(255, 0, 0, 0.15);
+}

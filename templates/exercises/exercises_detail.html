@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load exercise_extras %}
+
+{% block title %}{{ exercise.name }} – GymWiki{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">{{ exercise.name }}</h1>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    {% if exercise.video_url %}
+  <div class="ratio ratio-16x9 mb-4">
+    <iframe
+      src="{{ exercise.video_url|youtube_embed }}"
+      title="{{ exercise.name }}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+{% endif %}
+    <div class="col-12 {% if exercise.video_url %}col-md-4{% endif %}">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5>Descriere</h5>
+          <p>{{ exercise.description }}</p>
+          <p>
+            <strong>Grupă musculară:</strong>
+            <a href="{% url 'exercise-list' slug=exercise.muscle_group.slug %}">
+              {{ exercise.muscle_group.name }}
+            </a>
+          </p>
+          {% if user.is_authenticated %}
+            <a href="{% url 'exercise-edit' pk=exercise.pk %}" class="btn btn-sm btn-warning me-2">
+              Editează
+            </a>
+            <a href="{% url 'exercise-delete' pk=exercise.pk %}" class="btn btn-sm btn-danger">
+              Șterge
+            </a>
+          {% endif %}
+          <a href="{% url 'exercise-list' slug=exercise.muscle_group.slug %}" class="btn btn-sm btn-secondary mt-3">
+            Înapoi la {{ exercise.muscle_group.name }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
