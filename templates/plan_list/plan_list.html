@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Planurile mele – GymWiki{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Planurile generate</h1>
+  {% if plans %}
+    <div class="row gy-3">
+      {% for plan in plans %}
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              Generat la {{ plan.created|date:"d-m-Y H:i" }}
+            </div>
+            <div class="card-body">
+              {% for ex in plan.exercises %}
+                <a href="{% url 'exercise-detail' pk=ex.id %}" class="d-block mb-2 text-decoration-none">
+                  <strong>{{ ex.name }}</strong><br>
+                  Sets: {{ ex.sets }} • Reps: {{ ex.reps }}
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if is_paginated %}
+      <nav class="mt-4">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">«</a>
+            </li>
+          {% endif %}
+          {% for num in paginator.page_range %}
+            <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+              <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">»</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  {% else %}
+    <p class="text-muted">Nu ai generat încă niciun plan.</p>
+  {% endif %}
+</div>
+{% endblock %}

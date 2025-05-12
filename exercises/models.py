@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.conf import settings
 
 difficulty_choices = [
         ('easy', 'Ușor'),
@@ -28,3 +29,16 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class WorkoutPlan(models.Model):
+    user       = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                   on_delete=models.CASCADE)
+    parameters = models.JSONField()
+    exercises  = models.JSONField()
+    created    = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Plan #{self.pk} pentru {self.user.username}"
+
+

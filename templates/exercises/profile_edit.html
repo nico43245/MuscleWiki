@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Editează profil – GymWiki{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width:600px;">
+  <h1 class="mb-4">Editează profil</h1>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      <label for="{{ form.username.id_for_label }}" class="form-label">
+        {{ form.username.label }}
+      </label>
+      {{ form.username }}
+      {% for err in form.username.errors %}
+        <div class="invalid-feedback d-block">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.email.id_for_label }}" class="form-label">
+        {{ form.email.label }}
+      </label>
+      {{ form.email }}
+      {% for err in form.email.errors %}
+        <div class="invalid-feedback d-block">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.first_name.id_for_label }}" class="form-label">
+        Prenume
+      </label>
+      {{ form.first_name }}
+      {% for err in form.first_name.errors %}
+        <div class="invalid-feedback d-block">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.last_name.id_for_label }}" class="form-label">
+        Nume
+      </label>
+      {{ form.last_name }}
+      {% for err in form.last_name.errors %}
+        <div class="invalid-feedback d-block">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="text-end">
+      <a href="{% url 'profile' %}" class="btn btn-secondary me-2">Anulează</a>
+      <button type="submit" class="btn btn-success">Salvează</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

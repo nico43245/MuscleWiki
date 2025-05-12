@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Profilul meu – GymWiki{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width:600px;">
+  <h1 class="mb-4">Profilul tău</h1>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <p><strong>Username:</strong> {{ profile_user.username }}</p>
+      <p><strong>Email:</strong> {{ profile_user.email }}</p>
+      <p><strong>Prenume:</strong> {{ profile_user.first_name }}</p>
+      <p><strong>Nume:</strong> {{ profile_user.last_name }}</p>
+      <p><strong>Data înregistrării:</strong> {{ profile_user.date_joined|date:"d-m-Y H:i" }}</p>
+    </div>
+    <div class="card-footer text-end">
+      <a href="{% url 'profile-edit' %}" class="btn btn-primary">
+        Editează profil
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

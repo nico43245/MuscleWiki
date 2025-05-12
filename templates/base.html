@@ -41,6 +41,19 @@
   <!-- 6) JS-ul tău personalizat (opţional) -->
   <script src="{% static 'exercises/js/scripts.js' %}"></script>
 
-  {% block extra_js %}{% endblock %}
+  {% block extra_js %}
+      <script>
+    document.getElementById('finish-btn').addEventListener('click', () => {
+      const stepEl = document.querySelector('.step:not(.d-none)');
+      const sel    = stepEl.querySelector('.choice-card.selected');
+      if (!sel) return alert('Alege un nivel!');
+      data.level = sel.dataset.value;
+      // Înainte, ai definit data.gender, data.age, data.goal…
+      const qs = new URLSearchParams(data).toString();
+      window.location.href = `{% url 'workout-generator' %}?${qs}`;
+    });
+    // restul JS-ului rămâne identic…
+  </script>
+  {% endblock %}
 </body>
 </html>

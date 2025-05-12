@@ -1,0 +1,205 @@
+{#{% extends "base.html" %}#}
+{#{% load static   %}#}
+{#{% block title %}Workout Generator – GymWiki{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="container py-5" style="max-width:800px;">#}
+{#        <h1 class="mb-4">Workout Generator</h1>#}
+{#        <div id="generator">#}
+{##}
+{#            <!-- Step 1: Gender -->#}
+{#            <div class="step" data-step="1">#}
+{#                <h2>Selectează-ți genul</h2>#}
+{#                <div class="row gy-3 mt-3">#}
+{#                    <div class="col-6">#}
+{#                        <div class="card choice-card" data-value="male">#}
+{#                            <div class="card-body text-center">#}
+{#                                Bărbat#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-6">#}
+{#                        <div class="card choice-card" data-value="female">#}
+{#                            <div class="card-body text-center">#}
+{#                                Femeie#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="mt-4 d-flex justify-content-between">#}
+{#                    <button class="btn btn-secondary disabled">Înapoi</button>#}
+{#                    <button class="btn btn-primary" id="next-btn">Înainte</button>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <!-- Step 2: Age -->#}
+{#            <div class="step d-none" data-step="2">#}
+{#                <h2>Vârsta ta</h2>#}
+{#                <div class="card p-4 my-4">#}
+{#                    <label for="ageRange" class="form-label fs-4">Age: <span id="ageVal">25</span></label>#}
+{#                    <input type="range" class="form-range" min="13" max="80" value="25" id="ageRange">#}
+{#                </div>#}
+{#                <div class="mt-4 d-flex justify-content-between">#}
+{#                    <button class="btn btn-secondary" id="back-btn">Înapoi</button>#}
+{#                    <button class="btn btn-primary" id="next-btn">Înainte</button>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <!-- Step 3: Fitness Goal -->#}
+{#            <div class="step d-none" data-step="3">#}
+{#                <h2>Care e obiectivul tău?</h2>#}
+{#                <div class="row gy-3 mt-3">#}
+{#                    {% for goal in goals %}#}
+{#                        <div class="col-12">#}
+{#                            <div class="card choice-card" data-value="{{ goal|lower }}">#}
+{#                                <div class="card-body text-center">#}
+{#                                    {{ goal }}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <div class="mt-4 d-flex justify-content-between">#}
+{#                    <button class="btn btn-secondary" id="back-btn">Înapoi</button>#}
+{#                    <button class="btn btn-primary" id="next-btn">Înainte</button>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <!-- Step 4: Fitness Level -->#}
+{#            <div class="step d-none" data-step="4">#}
+{#                <h2>La ce nivel ești?</h2>#}
+{#                <div class="row gy-3 mt-3">#}
+{#                    {% for lvl in levels %}#}
+{#                        <div class="col-12">#}
+{#                            <div class="card choice-card" data-value="{{ lvl|lower }}">#}
+{#                                <div class="card-body text-center">#}
+{#                                    {{ lvl }}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <div class="mt-4 d-flex justify-content-between">#}
+{#                    <button class="btn btn-secondary" id="back-btn">Înapoi</button>#}
+{#                    <button class="btn btn-success" id="finish-btn">Generează</button>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#        {% if plan %}#}
+{#      <hr class="my-4">#}
+{#      <h2 class="mb-3">Plan generat</h2>#}
+{#      <div class="row gy-3">#}
+{#        {% for item in plan %}#}
+{#          <div class="col-md-6">#}
+{#            <div class="card shadow-sm h-100">#}
+{#              <div class="card-body">#}
+{#                <h5 class="card-title">{{ item.name }}</h5>#}
+{#                <p class="card-text">#}
+{#                  Sets: {{ item.sets }} • Reps: {{ item.reps }}#}
+{#                </p>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        {% endfor %}#}
+{#      </div>#}
+{#    {% endif %}#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% block extra_js %}#}
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', () => {#}
+{#            const steps = Array.from(document.querySelectorAll('.step'));#}
+{#            let current = 0;#}
+{#            const data = {};#}
+{##}
+{#            function showStep(idx) {#}
+{#                steps.forEach((s, i) => {#}
+{#                    s.classList.toggle('d-none', i !== idx);#}
+{#                });#}
+{#                current = idx;#}
+{#            }#}
+{##}
+{#            // Age slider update#}
+{#            const ageRange = document.getElementById('ageRange');#}
+{#            const ageVal = document.getElementById('ageVal');#}
+{#            if (ageRange) {#}
+{#                ageVal.textContent = ageRange.value;#}
+{#                ageRange.oninput = () => {#}
+{#                    ageVal.textContent = ageRange.value;#}
+{#                };#}
+{#            }#}
+{##}
+{#            // Next buttons#}
+{#            document.querySelectorAll('#next-btn').forEach(btn =>#}
+{#                btn.addEventListener('click', () => {#}
+{#                    const stepEl = steps[current];#}
+{#                    if (current === 0) {#}
+{#                        const sel = stepEl.querySelector('.choice-card.selected');#}
+{#                        if (!sel) return alert('Alege o opțiune');#}
+{#                        data.gender = sel.dataset.value;#}
+{#                    }#}
+{#                    if (current === 1) {#}
+{#                        data.age = ageRange.value;#}
+{#                    }#}
+{#                    if (current === 2) {#}
+{#                        const sel = stepEl.querySelector('.choice-card.selected');#}
+{#                        if (!sel) return alert('Alege un obiectiv');#}
+{#                        data.goal = sel.dataset.value;#}
+{#                    }#}
+{#                    showStep(current + 1);#}
+{#                })#}
+{#            );#}
+{##}
+{#            // Back buttons#}
+{#            document.querySelectorAll('#back-btn').forEach(btn =>#}
+{#                btn.addEventListener('click', () => showStep(current - 1))#}
+{#            );#}
+{##}
+{#            // Finish#}
+{#            document.getElementById('finish-btn')#}
+{#                .addEventListener('click', () => {#}
+{#                    const stepEl = steps[current];#}
+{#                    const sel = stepEl.querySelector('.choice-card.selected');#}
+{#                    if (!sel) return alert('Alege un nivel');#}
+{#                    data.level = sel.dataset.value;#}
+{##}
+{#                    console.log('Generator input:', data);#}
+{#                    // TODO: trimite `data` prin AJAX sau navighează la /generator/result/?...#}
+{#                    alert(`Veștile bune: vom genera antrenamentul pentru:#}
+{#Gender=${data.gender}, Age=${data.age}, Goal=${data.goal}, Level=${data.level}`);#}
+{#                });#}
+{##}
+{#            // click pe choice-card#}
+{#            document.querySelectorAll('.choice-card').forEach(card =>#}
+{#                card.addEventListener('click', () => {#}
+{#                    const parent = card.closest('.step');#}
+{#                    parent.querySelectorAll('.choice-card')#}
+{#                        .forEach(c => c.classList.remove('border-primary', 'selected'));#}
+{#                    card.classList.add('border-primary', 'selected');#}
+{#                })#}
+{#            );#}
+{##}
+{#            // arată primul step#}
+{#            showStep(0);#}
+{#        });#}
+{#        document.addEventListener('DOMContentLoaded', () => {#}
+{##}
+{##}
+{#  // Finish / Generează#}
+{#  document.getElementById('finish-btn').addEventListener('click', () => {#}
+{#    const stepEl = document.querySelector('.step:not(.d-none)');#}
+{#    const sel    = stepEl.querySelector('.choice-card.selected');#}
+{#    if (!sel) return alert('Alege nivelul!');#}
+{##}
+{#    data.level = sel.dataset.value;#}
+{##}
+{#    const qs = new URLSearchParams(data).toString();#}
+{#    window.location.href = "{% url 'workout-generator' %}?" + qs;#}
+{#  });#}
+{#});#}
+{#    </script>#}
+{#{% endblock %}#}

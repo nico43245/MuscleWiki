@@ -1,6 +1,7 @@
 from django import forms
 
 from exercises.models import Exercise, MuscleGroup
+from django.contrib.auth.models import User
 
 
 class ExerciseForm(forms.ModelForm):
@@ -44,4 +45,20 @@ class ExerciseUpdateForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name of exercise'}),
             'muscle_group': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Muscle Group'}),
+        }
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'first_name': 'Prenume',
+            'last_name': 'Nume',
         }
