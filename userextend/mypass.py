@@ -1,0 +1,1 @@
+parola_mea='lqbc xkhc fwir icrj'

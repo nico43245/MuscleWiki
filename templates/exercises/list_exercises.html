@@ -4,27 +4,46 @@
 {% block title %}Exerciții – {{ group.name }}{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Exerciții pentru {{ group.name }}</h1>
-    <div class="row gy-4">
-        {% for ex in exercises %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ ex.name }}</h5>
-                        <p class="card-text">{{ ex.description|truncatechars:100 }}</p>
-                        <a href="{% url 'exercise-detail' pk=ex.pk %}" class="btn btn-primary">Detalii</a>
-                    </div>
-                </div>
-            </div>
-            <ul class="dropdown-menu">
-                <a href="{% url 'exercise-edit' ex.pk %}" class="dropdown-item">
-                    Update
-                </a>
-            </ul>
-        {% empty %}
-            <div class="col-12">
-                <p class="text-muted">Nu există exerciții pentru această grupă.</p>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidebar cu grupele musculare -->
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar py-4">
+      <ul class="nav flex-column">
+        {% for m in muscle_groups %}
+          <li class="nav-item mb-2">
+            <a class="nav-link {% if m.slug == group.slug %}active{% endif %}"
+               href="{% url 'exercise-list' slug=m.slug %}">
+              {{ m.name }}
+            </a>
+          </li>
         {% endfor %}
-    </div>
+      </ul>
+    </nav>
+
+    <!-- Zona principală cu exerciții -->
+    <section class="col-md-10 ms-sm-auto px-4">
+{#      <h1 class="mb-4">Exerciții pentru {{ group.name }}</h1>#}
+      <div class="row gy-4">
+        {% for ex in exercises %}
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">{{ ex.name }}</h5>
+                <p class="card-text">{{ ex.description|truncatechars:100 }}</p>
+                <a href="{% url 'exercise-detail' pk=ex.pk %}" class="btn btn-primary">Detalii</a>
+                <a href="{% url 'exercise-edit' ex.pk %}" class="btn btn-outline-secondary ms-2">Update</a>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-muted">Nu există exerciții pentru această grupă.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </div>
+</div>
 {% endblock %}

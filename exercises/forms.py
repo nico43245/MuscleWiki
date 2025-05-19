@@ -5,23 +5,22 @@ from django.contrib.auth.models import User
 
 
 class ExerciseForm(forms.ModelForm):
-    muscle_group = forms.ModelChoiceField(
-        MuscleGroup.objects.all().order_by('name'),
-        empty_label='Alege grupa…',
-        widget=forms.Select(attrs={'class': 'form-select'}),
-        label='Grupă Musculară',
+    video_url = forms.URLField(
+        label='Video URL',
+        widget=forms.URLInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Video URL'
+        })
     )
 
     class Meta:
         model = Exercise
-        fields='__all__'
-
+        fields = '__all__'
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control','placeholder':'Name of exercise'}),
-            'muscle_group': forms.TextInput(attrs={'class': 'form-control','placeholder':'Muscle Group'}),
-            'description': forms.TextInput(attrs={'class': 'form-control','placeholder':'Description of exercise'}),
-            'difficulty': forms.TextInput(attrs={'class': 'form-control','placeholder':'Difficulty of exercise'}),
-
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name of exercise'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description of exercise'}),
+            'difficulty': forms.Select(attrs={'class': 'form-select'}),
+            'muscle_group': forms.Select(attrs={'class': 'form-select'}),
         }
 
     def clean(self):
@@ -62,3 +61,5 @@ class UserProfileForm(forms.ModelForm):
             'first_name': 'Prenume',
             'last_name': 'Nume',
         }
+
+

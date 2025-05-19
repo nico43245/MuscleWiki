@@ -7,7 +7,7 @@
   <div class="container py-4">
     <h1 class="mb-4">Grupe Musculare</h1>
     <div class="row g-3">
-      {% for group in groups %}
+      {% for group in muscle_groups %}
         <div class="col-6 col-md-4 col-lg-3">
           <a href="{% url 'exercise-list' slug=group.slug %}" class="text-decoration-none">
             <div class="card h-100 shadow-sm">

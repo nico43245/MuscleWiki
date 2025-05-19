@@ -186,16 +186,3 @@ class WorkoutGeneratorView(LoginRequiredMixin, TemplateView):
         return ctx
 
 
-
-
-
-# class WorkoutPlanListView(LoginRequiredMixin, ListView):
-#     model               = WorkoutPlan
-#     template_name       = 'plan_list/plan_list.html'
-#     context_object_name = 'plans'
-#     paginate_by         = 10
-#
-#     def get_queryset(self):
-#         return WorkoutPlan.objects.filter(user=self.request.user) \
-#                                   .order_by('-created')
-
